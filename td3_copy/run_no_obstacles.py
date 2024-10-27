@@ -1,24 +1,9 @@
 import os
-import random
 import torch
-import numpy as np
 import matplotlib.pyplot as plt
-from td3_copy.code.sim.gym_envirnment_no_obstacle_seed import ContinuousEnv
+from td3_copy.code.sim.gym_environment_no_obstacle import ContinuousEnv
 from td3_copy.code.agent.TD3 import TD3
 from td3_copy.code.agent.ReplayBuffer import ReplayBuffer
-
-
-import random
-import numpy as np
-import torch
-
-SEED = 42  # Set a fixed seed value
-
-random.seed(SEED)
-np.random.seed(SEED)
-torch.manual_seed(SEED)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(SEED)
 
 
 def main():
@@ -39,13 +24,12 @@ def main():
     if not os.path.exists(models_dir):
         os.makedirs(models_dir)
 
-    # Generate filenames using max_episodes
-    actor_model_path = os.path.join(models_dir, f"actor_model_no_obstacles_seed{max_episodes}_episodes.pth")
-    critic_model_path = os.path.join(models_dir, f"critic_model_no_obstacles_seed{max_episodes}_episodes.pth")
+    # Generate filenames6+ using max_episodes
+    actor_model_path = os.path.join(models_dir, f"actor_model_no_obstacles_{max_episodes}_episodes.pth")
+    critic_model_path = os.path.join(models_dir, f"critic_model_no_obstacles_{max_episodes}_episodes.pth")
 
     # Initialize environment, agent, and replay buffer
     env = ContinuousEnv()  # Use continuous environment as intended
-    env.seed(SEED)  # Set the seed for the environment
     state_dim = 2  # x and y positions for continuous movement
     action_dim = 2  # Actions can be continuous in both x and y directions
 
